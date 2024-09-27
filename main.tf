@@ -21,7 +21,7 @@ resource "azurerm_windows_function_app" "this" {
   https_only   = true
 
   site_config {
-    # application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
+    application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
   }
 
   identity {
@@ -44,7 +44,7 @@ resource "azurerm_linux_function_app" "this" {
   https_only   = true
 
   site_config {
-    # application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
+    application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
   }
 
   identity {
@@ -68,12 +68,11 @@ module "functions_storage_account" {
 }
 
 # TODO
-# module "application_insights" {
-#   source = "git@github.com:moneyadviceservice/terraform-module-application-insights?ref=main"
+module "application_insights" {
+  source = "git@github.com:moneyadviceservice/terraform-module-application-insights?ref=main"
 
-#   env                 = var.env
-#   product             = var.product
-#   name                = "${var.product}-${var.name}"
-#   resource_group_name = var.resource_group_name
-
-# }
+  env                 = var.env
+  product             = var.product
+  name                = "${var.product}-${var.name}"
+  resource_group_name = var.resource_group_name
+}

@@ -1,5 +1,5 @@
 # terraform-module-function-app
-A Terraform module for the creation of function apps
+A Terraform module for the creation of [Function Apps](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview?pivots=programming-language-csharp)
 
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
@@ -16,6 +16,7 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
+| <a name="module_application_insights"></a> [application\_insights](#module\_application\_insights) | git@github.com:moneyadviceservice/terraform-module-application-insights | main |
 | <a name="module_functions_storage_account"></a> [functions\_storage\_account](#module\_functions\_storage\_account) | git@github.com:moneyadviceservice/terraform-module-storage-account | main |
 
 ## Resources
