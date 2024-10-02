@@ -25,12 +25,13 @@ variable "app_settings" {
 
 variable "os_type" {
   type        = string
-  description = "Required) The O/S type for the App Services to be hosted in this plan."
+  description = "(Required) The O/S type for the App Services to be hosted in this plan."
   default     = "Linux"
 }
 
 variable "product" {
-  type = string
+  type        = string
+  description = "The product name"
 }
 
 variable "create_service_plan" {
@@ -78,4 +79,8 @@ variable "default_action" {
   type        = string
   description = "(Optional) Network rules default action"
   default     = "Deny"
+}
+
+variable "functions_storage_account" {
+
 }

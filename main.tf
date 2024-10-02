@@ -54,7 +54,7 @@ resource "azurerm_linux_function_app" "this" {
 }
 
 module "functions_storage_account" {
-  source = "git@github.com:moneyadviceservice/terraform-module-storage-account?ref=main"
+  source = "git@github.com:moneyadviceservice/terraform-module-storage-account?ref=add_module"
 
   env                             = var.env
   storage_account_name            = replace("${var.name}${var.env}", "-", "")
@@ -69,7 +69,7 @@ module "functions_storage_account" {
 
 # TODO
 module "application_insights" {
-  source = "git@github.com:moneyadviceservice/terraform-module-application-insights?ref=main"
+  source = "git@github.com:moneyadviceservice/terraform-module-application-insights?ref=add_module"
 
   env                 = var.env
   product             = var.product
