@@ -80,3 +80,9 @@ variable "default_action" {
   description = "(Optional) Network rules default action"
   default     = "Deny"
 }
+
+variable "account_tier" {
+  type        = string
+  description = "Defines the Tier to use for this storage account. Valid options are Standard and Premium."
+  default     = "Standard"
+}
