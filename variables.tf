@@ -80,3 +80,7 @@ variable "default_action" {
   description = "(Optional) Network rules default action"
   default     = "Deny"
 }
+
+variable "sa_replication_type" {
+  default = "ZRS"
+}
