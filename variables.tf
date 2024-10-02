@@ -45,7 +45,7 @@ variable "service_plan_id" {
   description = "If you want to use an existing service plan"
   default     = null
 }
-variable "account_tier" {
+variable "sa_account_tier" {
   type        = string
   description = "(Required) Defines the Tier to use for this storage account"
   default     = "Standard"
@@ -79,10 +79,4 @@ variable "default_action" {
   type        = string
   description = "(Optional) Network rules default action"
   default     = "Deny"
-}
-
-variable "account_tier" {
-  type        = string
-  description = "Defines the Tier to use for this storage account. Valid options are Standard and Premium."
-  default     = "Standard"
 }
