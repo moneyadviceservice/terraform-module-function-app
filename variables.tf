@@ -80,7 +80,3 @@ variable "default_action" {
   description = "(Optional) Network rules default action"
   default     = "Deny"
 }
-
-variable "functions_storage_account" {
-
-}

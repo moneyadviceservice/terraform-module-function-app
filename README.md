@@ -16,8 +16,8 @@ No requirements.
 
 | Name | Source | Version |
 |------|--------|---------|
-| <a name="module_application_insights"></a> [application\_insights](#module\_application\_insights) | git@github.com:moneyadviceservice/terraform-module-application-insights | main |
-| <a name="module_functions_storage_account"></a> [functions\_storage\_account](#module\_functions\_storage\_account) | git@github.com:moneyadviceservice/terraform-module-storage-account | main |
+| <a name="module_application_insights"></a> [application\_insights](#module\_application\_insights) | github.com/moneyadviceservice/terraform-module-application-insights | add_module |
+| <a name="module_functions_storage_account"></a> [functions\_storage\_account](#module\_functions\_storage\_account) | github.com/moneyadviceservice/terraform-module-storage-account | add_module |
 
 ## Resources
 
@@ -41,8 +41,8 @@ No requirements.
 | <a name="input_env"></a> [env](#input\_env) | The environment to deploy to | `string` | n/a | yes |
 | <a name="input_location"></a> [location](#input\_location) | n/a | `string` | `"UK South"` | no |
 | <a name="input_name"></a> [name](#input\_name) | The name of your function app | `string` | n/a | yes |
-| <a name="input_os_type"></a> [os\_type](#input\_os\_type) | Required) The O/S type for the App Services to be hosted in this plan. | `string` | `"Linux"` | no |
-| <a name="input_product"></a> [product](#input\_product) | n/a | `string` | n/a | yes |
+| <a name="input_os_type"></a> [os\_type](#input\_os\_type) | (Required) The O/S type for the App Services to be hosted in this plan. | `string` | `"Linux"` | no |
+| <a name="input_product"></a> [product](#input\_product) | The product name | `string` | n/a | yes |
 | <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The resource group your function app will be assigned to | `string` | n/a | yes |
 | <a name="input_service_plan_id"></a> [service\_plan\_id](#input\_service\_plan\_id) | If you want to use an existing service plan | `string` | `null` | no |
 | <a name="input_sku_name"></a> [sku\_name](#input\_sku\_name) | (Required) The SKU for the plan. | `string` | `"Y1"` | no |
