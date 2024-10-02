@@ -13,7 +13,7 @@ resource "azurerm_windows_function_app" "this" {
   resource_group_name = var.resource_group_name
   location            = var.location
 
-  storage_account_name       = module.functions_storage_account.name
+  storage_account_name       = module.functions_storage_account.storageaccount_name
   storage_account_access_key = module.functions_storage_account.primary_access_key
   service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[0].id
 
@@ -35,7 +35,7 @@ resource "azurerm_linux_function_app" "this" {
   resource_group_name = var.resource_group_name
   location            = var.location
 
-  storage_account_name       = module.functions_storage_account.name
+  storage_account_name       = module.functions_storage_account.storageaccount_name
   storage_account_access_key = module.functions_storage_account.primary_access_key
 
   service_plan_id = azurerm_service_plan.this[0].id
