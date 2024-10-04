@@ -104,12 +104,6 @@ variable "use_dotnet_isolated_runtime" {
   default     = true
 }
 
-variable "default_documents" {
-  type        = list(string)
-  description = "(Optional) Specifies a list of Default Documents for the Windows Function App."
-  default     = null
-}
-
 variable "cors_rules" {
   type = list(object({
     allowed_origins = list(string)
@@ -149,4 +143,10 @@ variable "node_version" {
   type        = string
   description = "(Optional) The version of Node to run."
   default     = "20"
+}
+
+variable "ftps_state" {
+  type        = string
+  description = "(Optional) State of FTP / FTPS service for this Windows Function App."
+  default     = null
 }
