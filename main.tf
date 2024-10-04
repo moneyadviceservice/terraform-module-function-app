@@ -69,22 +69,20 @@ resource "azurerm_linux_function_app" "this" {
         support_credentials = false
       }
     }
+
+    dynamic "cors" {
+      for_each = var.cors_rules
+
+      content {
+        allowed_origins     = cors_rule.value["allowed_origins"]
+        support_credentials = false
+      }
+    }
   }
 
   identity {
     type = "SystemAssigned"
   }
-
-  dynamic "cors" {
-    for_each = var.cors_rules
-
-    content {
-      allowed_origins     = cors_rule.value["allowed_origins"]
-      support_credentials = false
-    }
-  }
-
-
 }
 
 module "functions_storage_account" {
