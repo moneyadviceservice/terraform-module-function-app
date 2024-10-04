@@ -82,5 +82,71 @@ variable "default_action" {
 }
 
 variable "sa_replication_type" {
+  type    = string
   default = "ZRS"
+}
+
+variable "dotnet_version" {
+  type        = string
+  description = "(Optional) The version of .NET to use."
+  default     = "v8.0"
+}
+
+variable "use_custom_runtime" {
+  description = "(Optional) Should the Windows Function App use a custom runtime?"
+  type        = bool
+  default     = false
+}
+
+variable "use_dotnet_isolated_runtime" {
+  type        = bool
+  description = "(Optional) Should the DotNet process use an isolated runtime. Defaults to false."
+  default     = true
+}
+
+variable "default_documents" {
+  type        = list(string)
+  description = "(Optional) Specifies a list of Default Documents for the Windows Function App."
+  default     = null
+}
+
+variable "cors_rules" {
+  type = list(object({
+    allowed_origins = list(string)
+  }))
+  description = "(Optional) Specifies a list of origins that should be allowed to make cross-origin calls."
+  default     = []
+}
+
+variable "app_scale_limit" {
+  type        = number
+  description = "(Optional) The number of workers this function app can scale out to."
+  default     = 200
+}
+
+variable "dotnet_stack" {
+  type    = bool
+  default = false
+}
+
+variable "java_stack" {
+  type    = bool
+  default = false
+}
+
+variable "node_stack" {
+  type    = bool
+  default = false
+}
+
+variable "java_version" {
+  type        = string
+  description = "(Optional) The version of Java to use."
+  default     = "17"
+}
+
+variable "node_version" {
+  type        = string
+  description = "(Optional) The version of Node to run."
+  default     = "20"
 }

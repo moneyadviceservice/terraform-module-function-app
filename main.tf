@@ -22,6 +22,29 @@ resource "azurerm_windows_function_app" "this" {
 
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
+    default_documents                      = var.default_documents
+    app_scale_limit                        = var.app_scale_limit
+
+    dynamic "application_stack" {
+      for_each = var.dotnet_stack || var.java_stack || var.node_stack ? [1] : []
+      content {
+        dotnet_version              = var.dotnet_stack ? var.dotnet_version : null
+        use_custom_runtime          = var.dotnet_stack ? var.use_custom_runtime : null
+        use_dotnet_isolated_runtime = var.dotnet_stack ? var.use_dotnet_isolated_runtime : null
+        java_version                = var.java_stack ? var.java_version : null
+        node_version                = var.node_stack ? var.node_version : null
+
+      }
+    }
+  }
+
+  dynamic "cors" {
+    for_each = var.cors_rules
+
+    content {
+      allowed_origins     = cors_rule.value["allowed_origins"]
+      support_credentials = false
+    }
   }
 
   identity {
@@ -45,11 +68,22 @@ resource "azurerm_linux_function_app" "this" {
 
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
+    app_scale_limit                        = var.app_scale_limit
   }
 
   identity {
     type = "SystemAssigned"
   }
+
+  dynamic "cors" {
+    for_each = var.cors_rules
+
+    content {
+      allowed_origins     = cors_rule.value["allowed_origins"]
+      support_credentials = false
+    }
+  }
+
 
 }
 
