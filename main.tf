@@ -38,15 +38,6 @@ resource "azurerm_windows_function_app" "this" {
     }
   }
 
-  dynamic "cors" {
-    for_each = var.cors_rules
-
-    content {
-      allowed_origins     = cors_rule.value["allowed_origins"]
-      support_credentials = false
-    }
-  }
-
   identity {
     type = "SystemAssigned"
   }
@@ -69,6 +60,15 @@ resource "azurerm_linux_function_app" "this" {
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
+
+    dynamic "cors" {
+      for_each = var.cors_rules
+
+      content {
+        allowed_origins     = cors_rule.value["allowed_origins"]
+        support_credentials = false
+      }
+    }
   }
 
   identity {
