@@ -28,11 +28,11 @@ resource "azurerm_windows_function_app" "this" {
     dynamic "application_stack" {
       for_each = var.dotnet_stack || var.java_stack || var.node_stack ? [1] : []
       content {
-        dotnet_version              = var.dotnet_stack ? var.dotnet_version : null
-        use_custom_runtime          = var.dotnet_stack ? var.use_custom_runtime : null
-        use_dotnet_isolated_runtime = var.dotnet_stack ? var.use_dotnet_isolated_runtime : null
-        java_version                = var.java_stack ? var.java_version : null
-        node_version                = var.node_stack ? var.node_version : null
+        dotnet_version              = var.dotnet_stack == true ? var.dotnet_version : null
+        use_custom_runtime          = var.dotnet_stack == true ? var.use_custom_runtime : null
+        use_dotnet_isolated_runtime = var.dotnet_stack == true ? var.use_dotnet_isolated_runtime : null
+        java_version                = var.java_stack == true ? var.java_version : null
+        node_version                = var.node_stack == true ? var.node_version : null
 
       }
     }
