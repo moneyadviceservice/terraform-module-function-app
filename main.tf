@@ -95,6 +95,6 @@ module "application_insights" {
 
   env                 = var.env
   product             = var.product
-  name                = "${var.product}-${var.name}"
+  name                = var.name
   resource_group_name = var.resource_group_name
 }
