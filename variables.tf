@@ -104,14 +104,6 @@ variable "use_dotnet_isolated_runtime" {
   default     = true
 }
 
-variable "cors_rules" {
-  type = list(object({
-    allowed_origins = list(string)
-  }))
-  description = "(Optional) Specifies a list of origins that should be allowed to make cross-origin calls."
-  default     = []
-}
-
 variable "app_scale_limit" {
   type        = number
   description = "(Optional) The number of workers this function app can scale out to."

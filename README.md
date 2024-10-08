@@ -36,7 +36,6 @@ No requirements.
 | <a name="input_allow_nested_items_to_be_public"></a> [allow\_nested\_items\_to\_be\_public](#input\_allow\_nested\_items\_to\_be\_public) | (Optional) Allow or disallow nested items within this Account to opt into being public | `bool` | `false` | no |
 | <a name="input_app_scale_limit"></a> [app\_scale\_limit](#input\_app\_scale\_limit) | (Optional) The number of workers this function app can scale out to. | `number` | `200` | no |
 | <a name="input_app_settings"></a> [app\_settings](#input\_app\_settings) | (Optional) A map of key-value pairs for App Settings and custom values. | `map(string)` | n/a | yes |
-| <a name="input_cors_rules"></a> [cors\_rules](#input\_cors\_rules) | (Optional) Specifies a list of origins that should be allowed to make cross-origin calls. | <pre>list(object({<br>    allowed_origins = list(string)<br>  }))</pre> | `[]` | no |
 | <a name="input_create_service_plan"></a> [create\_service\_plan](#input\_create\_service\_plan) | If true a new service plan is created | `bool` | `true` | no |
 | <a name="input_default_action"></a> [default\_action](#input\_default\_action) | (Optional) Network rules default action | `string` | `"Deny"` | no |
 | <a name="input_dotnet_stack"></a> [dotnet\_stack](#input\_dotnet\_stack) | n/a | `bool` | `false` | no |
