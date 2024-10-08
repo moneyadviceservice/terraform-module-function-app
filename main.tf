@@ -9,7 +9,7 @@ resource "azurerm_service_plan" "this" {
 
 resource "azurerm_windows_function_app" "this" {
   count               = var.os_type == "Windows" ? 1 : 0
-  name                = "${var.name}-${var.env}"
+  name                = "func-${var.name}-${var.env}"
   resource_group_name = var.resource_group_name
   location            = var.location
 
@@ -24,6 +24,14 @@ resource "azurerm_windows_function_app" "this" {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
     ftps_state                             = var.ftps_state
+
+    dynamic "cors" {
+      for_each = var.cors_rules
+      content {
+        allowed_origins     = cors_rule.value["allowed_origins"]
+        support_credentials = false
+      }
+    }
 
     dynamic "application_stack" {
       for_each = var.dotnet_stack || var.java_stack || var.node_stack ? [1] : []
@@ -45,7 +53,7 @@ resource "azurerm_windows_function_app" "this" {
 
 resource "azurerm_linux_function_app" "this" {
   count               = var.os_type == "Linux" ? 1 : 0
-  name                = "${var.name}-${var.env}"
+  name                = "func-${var.name}-${var.env}"
   resource_group_name = var.resource_group_name
   location            = var.location
 
@@ -79,7 +87,7 @@ module "functions_storage_account" {
   source = "github.com/moneyadviceservice/terraform-module-storage-account?ref=add_module"
 
   env                             = var.env
-  storage_account_name            = replace("${var.name}${var.env}", "-", "")
+  storage_account_name            = replace(replace("${var.name}", "func-", "") + "${var.env}", "-", "")
   resource_group_name             = var.resource_group_name
   location                        = var.location
   account_kind                    = var.account_kind
@@ -89,7 +97,6 @@ module "functions_storage_account" {
   default_action                  = var.default_action
 }
 
-# TODO
 module "application_insights" {
   source = "github.com/moneyadviceservice/terraform-module-application-insights?ref=add_module"
 
