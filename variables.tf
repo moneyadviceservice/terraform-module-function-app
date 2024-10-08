@@ -78,7 +78,7 @@ variable "allow_nested_items_to_be_public" {
 variable "default_action" {
   type        = string
   description = "(Optional) Network rules default action"
-  default     = "Deny"
+  default     = "Allow"
 }
 
 variable "sa_replication_type" {

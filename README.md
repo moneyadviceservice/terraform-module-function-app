@@ -37,7 +37,7 @@ No requirements.
 | <a name="input_app_scale_limit"></a> [app\_scale\_limit](#input\_app\_scale\_limit) | (Optional) The number of workers this function app can scale out to. | `number` | `200` | no |
 | <a name="input_app_settings"></a> [app\_settings](#input\_app\_settings) | (Optional) A map of key-value pairs for App Settings and custom values. | `map(string)` | n/a | yes |
 | <a name="input_create_service_plan"></a> [create\_service\_plan](#input\_create\_service\_plan) | If true a new service plan is created | `bool` | `true` | no |
-| <a name="input_default_action"></a> [default\_action](#input\_default\_action) | (Optional) Network rules default action | `string` | `"Deny"` | no |
+| <a name="input_default_action"></a> [default\_action](#input\_default\_action) | (Optional) Network rules default action | `string` | `"Allow"` | no |
 | <a name="input_dotnet_stack"></a> [dotnet\_stack](#input\_dotnet\_stack) | n/a | `bool` | `false` | no |
 | <a name="input_dotnet_version"></a> [dotnet\_version](#input\_dotnet\_version) | (Optional) The version of .NET to use. | `string` | `"v8.0"` | no |
 | <a name="input_env"></a> [env](#input\_env) | The environment to deploy to | `string` | n/a | yes |
