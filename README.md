@@ -55,7 +55,6 @@ No requirements.
 | <a name="input_sa_replication_type"></a> [sa\_replication\_type](#input\_sa\_replication\_type) | n/a | `string` | `"ZRS"` | no |
 | <a name="input_service_plan_id"></a> [service\_plan\_id](#input\_service\_plan\_id) | If you want to use an existing service plan | `string` | `null` | no |
 | <a name="input_sku_name"></a> [sku\_name](#input\_sku\_name) | (Required) The SKU for the plan. | `string` | `"Y1"` | no |
-| <a name="input_use_custom_runtime"></a> [use\_custom\_runtime](#input\_use\_custom\_runtime) | (Optional) Should the Windows Function App use a custom runtime? | `bool` | `false` | no |
 | <a name="input_use_dotnet_isolated_runtime"></a> [use\_dotnet\_isolated\_runtime](#input\_use\_dotnet\_isolated\_runtime) | (Optional) Should the DotNet process use an isolated runtime. Defaults to false. | `bool` | `true` | no |
 
 ## Outputs

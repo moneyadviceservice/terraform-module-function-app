@@ -92,12 +92,6 @@ variable "dotnet_version" {
   default     = "v8.0"
 }
 
-variable "use_custom_runtime" {
-  description = "(Optional) Should the Windows Function App use a custom runtime?"
-  type        = bool
-  default     = false
-}
-
 variable "use_dotnet_isolated_runtime" {
   type        = bool
   description = "(Optional) Should the DotNet process use an isolated runtime. Defaults to false."
