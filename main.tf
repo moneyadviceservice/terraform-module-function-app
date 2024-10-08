@@ -87,7 +87,7 @@ module "functions_storage_account" {
   source = "github.com/moneyadviceservice/terraform-module-storage-account?ref=add_module"
 
   env                             = var.env
-  storage_account_name            = replace(replace("${var.name}", "func-", "") + "${var.env}", "-", "")
+  storage_account_name            = replace(replace("${var.name}${var.env}", "func-", ""), "-", "")
   resource_group_name             = var.resource_group_name
   location                        = var.location
   account_kind                    = var.account_kind
