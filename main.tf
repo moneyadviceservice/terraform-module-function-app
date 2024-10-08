@@ -62,7 +62,7 @@ resource "azurerm_linux_function_app" "this" {
     app_scale_limit                        = var.app_scale_limit
 
     dynamic "cors" {
-      for_each = length(var.cors_rules) > 0 ? { for idx, cors_rule in var.cors_rules : idx => cors_rule } : {}
+      for_each = var.cors_rules
       content {
         allowed_origins     = cors_rule.value["allowed_origins"]
         support_credentials = false
