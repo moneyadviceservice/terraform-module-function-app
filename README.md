@@ -1,6 +1,20 @@
 # terraform-module-function-app
 A Terraform module for the creation of [Function Apps](https://learn.microsoft.com/en-us/azure/azure-functions/functions-overview?pivots=programming-language-csharp)
 
+## Example
+
+```hcl
+module "function_app" {
+  source = "git@github.com:moneyadviceservice/terraform-module-function-app?ref=main"
+
+  product = var.product
+  env     = var.env
+
+  resource_group_name = data.azurerm_resource_group.this.name
+}
+
+```
+
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
