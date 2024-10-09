@@ -4,7 +4,7 @@ A Terraform module for the creation of [Function Apps](https://learn.microsoft.c
 ## Example
 
 ```hcl
-module "function_app" {
+module "this" {
   source = "git@github.com:moneyadviceservice/terraform-module-function-app?ref=main"
 
   product = var.product
