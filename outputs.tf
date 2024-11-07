@@ -9,3 +9,15 @@ output "function_app_name" {
 output "function_app_default_hostname" {
   value = lower(var.os_type) == "windows" ? azurerm_windows_function_app.this[0].default_hostname : azurerm_linux_function_app.this[0].default_hostname
 }
+
+output "instrumentation_key" {
+  value = module.application_insights.instrumentation_key
+}
+
+output "app_insights_app_id" {
+  value = module.application_insights.app_id
+}
+
+output "sa_primary_access_key" {
+  value = module.functions_storage_account.primary_access_key
+}
