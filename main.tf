@@ -89,3 +89,10 @@ module "application_insights" {
   name                = var.name
   resource_group_name = var.resource_group_name
 }
+
+resource "azurerm_app_service_virtual_network_swift_connection" "vnet-integration" {
+  count = var.enable_vnet_integration == true ? 1 : 0
+
+  app_service_id = azurerm_windows_function_app.this.id
+  subnet_id      = var.subnet_id
+}
