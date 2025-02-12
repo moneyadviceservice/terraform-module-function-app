@@ -17,9 +17,16 @@ resource "azurerm_windows_function_app" "this" {
   storage_account_access_key = module.functions_storage_account.primary_access_key
   service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[0].id
 
-  app_settings              = var.app_settings
-  https_only                = true
-  virtual_network_subnet_id = var.enable_vnet_integration == true ? var.subnet_id : null
+  app_settings = var.app_settings
+  https_only   = true
+
+  dynamic "virtual_network_subnet_id" {
+    for_each = var.subnet_id != null ? [1] : []
+    content {
+      virtual_network_subnet_id = var.subnet_id
+    }
+  }
+
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
@@ -53,9 +60,15 @@ resource "azurerm_linux_function_app" "this" {
 
   service_plan_id = azurerm_service_plan.this[0].id
 
-  app_settings              = var.app_settings
-  https_only                = true
-  virtual_network_subnet_id = var.enable_vnet_integration == true ? var.subnet_id : null
+  app_settings = var.app_settings
+  https_only   = true
+  dynamic "virtual_network_subnet_id" {
+    for_each = var.subnet_id != null ? [1] : []
+    content {
+      virtual_network_subnet_id = var.subnet_id
+    }
+  }
+
 
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
