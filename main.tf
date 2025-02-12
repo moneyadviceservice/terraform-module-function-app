@@ -20,12 +20,7 @@ resource "azurerm_windows_function_app" "this" {
   app_settings = var.app_settings
   https_only   = true
 
-  dynamic "virtual_network_subnet_id" {
-    for_each = var.subnet_id != null ? [1] : []
-    content {
-      virtual_network_subnet_id = var.subnet_id
-    }
-  }
+  virtual_network_subnet_id = var.enable_vnet_integration == true ? var.subnet_id : null
 
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
@@ -60,14 +55,9 @@ resource "azurerm_linux_function_app" "this" {
 
   service_plan_id = azurerm_service_plan.this[0].id
 
-  app_settings = var.app_settings
-  https_only   = true
-  dynamic "virtual_network_subnet_id" {
-    for_each = var.subnet_id != null ? [1] : []
-    content {
-      virtual_network_subnet_id = var.subnet_id
-    }
-  }
+  app_settings              = var.app_settings
+  https_only                = true
+  virtual_network_subnet_id = var.enable_vnet_integration == true ? var.subnet_id : null
 
 
   site_config {
