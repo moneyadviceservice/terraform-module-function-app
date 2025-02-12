@@ -20,7 +20,7 @@ resource "azurerm_windows_function_app" "this" {
   app_settings = var.app_settings
   https_only   = true
 
-  virtual_network_subnet_id = var.enable_vnet_integration == true ? var.subnet_id : null
+  virtual_network_subnet_id = var.subnet_id != null ? var.subnet_id : null
 
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
@@ -57,7 +57,7 @@ resource "azurerm_linux_function_app" "this" {
 
   app_settings              = var.app_settings
   https_only                = true
-  virtual_network_subnet_id = var.enable_vnet_integration == true ? var.subnet_id : null
+  virtual_network_subnet_id = var.subnet_id != null ? var.subnet_id : null
 
 
   site_config {
@@ -83,7 +83,7 @@ module "functions_storage_account" {
   account_replication_type        = var.sa_replication_type
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   default_action                  = var.default_action
-  sa_subnets                      = var.subnet_id
+  sa_subnets                      = var.subnet_id != null ? ["${var.subnet_id}"] : null
 }
 
 module "application_insights" {
