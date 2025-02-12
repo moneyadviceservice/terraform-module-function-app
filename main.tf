@@ -83,7 +83,7 @@ module "functions_storage_account" {
   account_replication_type        = var.sa_replication_type
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   default_action                  = var.default_action
-  sa_subnets                      = ["${var.subnet_id}"]
+  sa_subnets                      = var.subnet_id
 }
 
 module "application_insights" {
