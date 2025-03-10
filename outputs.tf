@@ -21,3 +21,8 @@ output "app_insights_app_id" {
 output "sa_primary_access_key" {
   value = module.functions_storage_account.primary_access_key
 }
+
+output "slot_name" {
+  description = "Name of the Function App slot."
+  value       = try(azurerm_linux_function_app_slot.staging[0].name, null)
+}

@@ -20,8 +20,8 @@ resource "azurerm_windows_function_app" "this" {
   app_settings = var.app_settings
   https_only   = true
 
-  virtual_network_subnet_id = var.subnet_id != null ? var.subnet_id : null
-
+  public_network_access_enabled = var.public_network_access_enabled
+  virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
@@ -38,7 +38,9 @@ resource "azurerm_windows_function_app" "this" {
       }
     }
   }
-
+  # scm_ip_restriction {
+  #   vnet_route_all_enabled    =  var.enable_vnet_integration == true ? true : null
+  # }
   identity {
     type = "SystemAssigned"
   }
@@ -55,15 +57,15 @@ resource "azurerm_linux_function_app" "this" {
 
   service_plan_id = azurerm_service_plan.this[0].id
 
-  app_settings              = var.app_settings
-  https_only                = true
-  virtual_network_subnet_id = var.subnet_id != null ? var.subnet_id : null
+  app_settings                  = var.app_settings
+  https_only                    = true
+  public_network_access_enabled = var.public_network_access_enabled
+  virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
 
 
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
-
   }
 
   identity {
@@ -94,10 +96,3 @@ module "application_insights" {
   name                = "${var.name}-${var.env}"
   resource_group_name = var.resource_group_name
 }
-
-# resource "azurerm_app_service_virtual_network_swift_connection" "vnet-integration" {
-#   count = var.enable_vnet_integration == true ? 1 : 0
-
-#   app_service_id = azurerm_windows_function_app.this[count.index].id
-#   subnet_id      = var.subnet_id
-# }
