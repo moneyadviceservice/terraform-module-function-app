@@ -1,6 +1,6 @@
 resource "azurerm_service_plan" "this" {
   count               = var.create_service_plan ? 1 : 0
-  name                = "${var.product}-asp-${var.name}"
+  name                = var.asp_name == null ? "${var.product}-asp-${var.name}" : var.asp_name
   resource_group_name = var.resource_group_name
   location            = var.location
   os_type             = var.os_type

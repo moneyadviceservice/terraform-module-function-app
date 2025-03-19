@@ -40,6 +40,12 @@ variable "create_service_plan" {
   default     = true
 }
 
+variable "asp_name" {
+  type        = string
+  description = "optionally set a service plan name"
+  default     = null
+}
+
 variable "service_plan_id" {
   type        = string
   description = "If you want to use an existing service plan"
