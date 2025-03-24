@@ -1,4 +1,5 @@
 resource "azurerm_monitor_autoscale_setting" "scale_out" {
+  count               = var.create_service_plan == true ? 1 : 0
   name                = azurerm_service_plan.this[count.index].name
   resource_group_name = var.resource_group_name
   location            = var.location
