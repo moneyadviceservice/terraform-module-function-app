@@ -2,7 +2,7 @@ resource "azurerm_monitor_autoscale_setting" "scale_out" {
   name                = azurerm_service_plan.this.name
   resource_group_name = var.resource_group_name
   location            = var.location
-  target_resource_id  = azurerm_service_plan.this.id
+  target_resource_id  = azurerm_service_plan.this[0].id
 
   profile {
     name = "Scale out condition"
