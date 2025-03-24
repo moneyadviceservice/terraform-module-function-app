@@ -15,7 +15,7 @@ resource "azurerm_windows_function_app" "this" {
 
   storage_account_name       = module.functions_storage_account.storageaccount_name
   storage_account_access_key = module.functions_storage_account.primary_access_key
-  service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[0].id
+  service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[count.index].id
 
   app_settings = var.app_settings
   https_only   = true
@@ -51,7 +51,7 @@ resource "azurerm_linux_function_app" "this" {
   storage_account_name       = module.functions_storage_account.storageaccount_name
   storage_account_access_key = module.functions_storage_account.primary_access_key
 
-  service_plan_id = azurerm_service_plan.this[0].id
+  service_plan_id = azurerm_service_plan.this[count.index].id
 
   app_settings = var.app_settings
   https_only   = true

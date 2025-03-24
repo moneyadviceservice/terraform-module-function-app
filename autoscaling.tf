@@ -1,8 +1,8 @@
 resource "azurerm_monitor_autoscale_setting" "scale_out" {
-  name                = azurerm_service_plan.this[0].name
+  name                = azurerm_service_plan.this[count.index].name
   resource_group_name = var.resource_group_name
   location            = var.location
-  target_resource_id  = azurerm_service_plan.this[0].id
+  target_resource_id  = azurerm_service_plan.this[count.index].id
 
   profile {
     name = "Scale out condition"
@@ -15,7 +15,7 @@ resource "azurerm_monitor_autoscale_setting" "scale_out" {
     rule {
       metric_trigger {
         metric_name        = "CpuPercentage"
-        metric_resource_id = azurerm_service_plan.this[0].id
+        metric_resource_id = azurerm_service_plan.this[count.index].id
         time_grain         = "PT1M"
         statistic          = "Average"
         time_window        = "PT5M"
@@ -35,7 +35,7 @@ resource "azurerm_monitor_autoscale_setting" "scale_out" {
     rule {
       metric_trigger {
         metric_name        = "CpuPercentage"
-        metric_resource_id = azurerm_service_plan.this[0].id
+        metric_resource_id = azurerm_service_plan.this[count.index].id
         time_grain         = "PT1M"
         statistic          = "Average"
         time_window        = "PT5M"
