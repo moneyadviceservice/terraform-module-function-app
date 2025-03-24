@@ -23,5 +23,5 @@ output "sa_primary_access_key" {
 }
 
 output "asp_id" {
-  value = length(azurerm_service_plan.this) > 0 ? azurerm_service_plan.this[count.index].id : null
+  value = length(azurerm_service_plan.this) > 0 ? azurerm_service_plan.this[0].id : null
 }
