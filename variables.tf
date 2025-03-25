@@ -147,3 +147,15 @@ variable "subnet_id" {
   description = "The ID of the subnet to connect to"
   default     = null
 }
+
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "Enable public network access"
+  default     = true
+}
+
+# variable "staging_slot_enabled" {
+#   description = "Create a staging slot alongside the Function App for blue/green deployment purposes."
+#   type        = bool
+#   default     = false
+# }
