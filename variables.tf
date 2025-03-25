@@ -159,3 +159,12 @@ variable "public_network_access_enabled" {
 #   type        = bool
 #   default     = false
 # }
+
+variable "connection_strings" {
+  description = "List of connection strings for the application"
+  type = list(object({
+    name  = string
+    type  = string
+    value = string
+  }))
+}
