@@ -167,4 +167,6 @@ variable "connection_strings" {
     type  = string
     value = string
   }))
+
+  default = []
 }
