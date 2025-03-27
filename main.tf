@@ -18,9 +18,17 @@ resource "azurerm_windows_function_app" "this" {
   storage_account_access_key = module.functions_storage_account.primary_access_key
   service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[0].id
 
-  app_settings      = var.app_settings
-  connection_string = var.connection_string
-  https_only        = true
+  app_settings = var.app_settings
+  https_only   = true
+
+  dynamic "connection_string" {
+    for_each = var.connection_string
+    content {
+      name  = lookup(connection_string.value, "name", null)
+      type  = lookup(connection_string.value, "type", null)
+      value = lookup(connection_string.value, "value", null)
+    }
+  }
 
   public_network_access_enabled = var.public_network_access_enabled
   virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
@@ -60,12 +68,18 @@ resource "azurerm_linux_function_app" "this" {
   service_plan_id = azurerm_service_plan.this[0].id
 
   app_settings                  = var.app_settings
-  connection_string             = var.connection_strings
   https_only                    = true
   public_network_access_enabled = var.public_network_access_enabled
   virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
 
-
+  dynamic "connection_string" {
+    for_each = var.connection_string
+    content {
+      name  = lookup(connection_string.value, "name", null)
+      type  = lookup(connection_string.value, "type", null)
+      value = lookup(connection_string.value, "value", null)
+    }
+  }
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
