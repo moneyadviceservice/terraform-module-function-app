@@ -5,6 +5,7 @@ resource "azurerm_service_plan" "this" {
   location            = var.location
   os_type             = var.os_type
   sku_name            = var.sku_name
+  # zone_redundant      = var.zone_redundant
 }
 
 resource "azurerm_windows_function_app" "this" {
@@ -17,8 +18,9 @@ resource "azurerm_windows_function_app" "this" {
   storage_account_access_key = module.functions_storage_account.primary_access_key
   service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[0].id
 
-  app_settings = var.app_settings
-  https_only   = true
+  app_settings      = var.app_settings
+  connection_string = var.connection_strings
+  https_only        = true
 
   public_network_access_enabled = var.public_network_access_enabled
   virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
@@ -58,6 +60,7 @@ resource "azurerm_linux_function_app" "this" {
   service_plan_id = azurerm_service_plan.this[0].id
 
   app_settings                  = var.app_settings
+  connection_string             = var.connection_strings
   https_only                    = true
   public_network_access_enabled = var.public_network_access_enabled
   virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
