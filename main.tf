@@ -19,7 +19,7 @@ resource "azurerm_windows_function_app" "this" {
   service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[0].id
 
   app_settings      = var.app_settings
-  connection_string = var.connection_strings
+  connection_string = var.connection_string
   https_only        = true
 
   public_network_access_enabled = var.public_network_access_enabled
