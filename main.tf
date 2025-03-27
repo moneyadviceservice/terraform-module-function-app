@@ -22,7 +22,7 @@ resource "azurerm_windows_function_app" "this" {
   https_only   = true
 
   dynamic "connection_string" {
-    for_each = var.connection_string
+    for_each = var.connection_strings
     content {
       name  = lookup(connection_string.value, "name", null)
       type  = lookup(connection_string.value, "type", null)
@@ -73,7 +73,7 @@ resource "azurerm_linux_function_app" "this" {
   virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
 
   dynamic "connection_string" {
-    for_each = var.connection_string
+    for_each = var.connection_strings
     content {
       name  = lookup(connection_string.value, "name", null)
       type  = lookup(connection_string.value, "type", null)

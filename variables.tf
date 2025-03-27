@@ -170,9 +170,3 @@ variable "connection_strings" {
 
   default = []
 }
-
-variable "zone_redundant" {
-  type        = bool
-  default     = false
-  description = "(Optional) Specifies if the App Service Plan should be Zone Redundant."
-}
