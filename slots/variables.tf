@@ -153,7 +153,7 @@ variable "public_network_access_enabled" {
   default     = true
 }
 
-variable "slot_os_type" {
+variable "os_type" {
 
 }
 
