@@ -24,7 +24,7 @@ variable "app_settings" {
   default     = {}
 }
 
-variable "os_type" {
+variable "slot_os_type" {
   type        = string
   description = "(Required) The O/S type for the App Services to be hosted in this plan."
   default     = "Linux"
