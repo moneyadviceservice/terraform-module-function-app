@@ -55,9 +55,9 @@ resource "azurerm_windows_web_app_slot" "main" {
         }
       }
 
-      scm_type                    = lookup(site_config.value, "scm_type", null)
-      scm_minimum_tls_version     = lookup(site_config.value, "scm_minimum_tls_version", "1.2")
-      scm_use_main_ip_restriction = length(var.scm_allowed_cidrs) > 0 || var.scm_allowed_subnet_ids != null ? false : true
+      # scm_type                    = lookup(site_config.value, "scm_type", null)
+      # scm_minimum_tls_version     = lookup(site_config.value, "scm_minimum_tls_version", "1.2")
+      # scm_use_main_ip_restriction = length(var.scm_allowed_cidrs) > 0 || var.scm_allowed_subnet_ids != null ? false : true
 
       dynamic "application_stack" {
         for_each = lookup(site_config.value, "application_stack", null) == null ? [] : ["application_stack"]

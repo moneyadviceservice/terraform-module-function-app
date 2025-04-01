@@ -31,10 +31,10 @@ resource "azurerm_linux_web_app_slot" "main" {
       websockets_enabled                = lookup(site_config.value, "websockets_enabled", false)
 
       ip_restriction_default_action     = lookup(site_config.value, "ip_restriction_default_action", "Deny")
-      scm_ip_restriction_default_action = lookup(site_config.value, "scm_ip_restriction_default_action", "Deny")
-      scm_type                          = lookup(site_config.value, "scm_type", null)
-      scm_minimum_tls_version           = lookup(site_config.value, "scm_minimum_tls_version", "1.2")
-      scm_use_main_ip_restriction       = length(var.scm_allowed_cidrs) > 0 || var.scm_allowed_subnet_ids != null ? false : true
+      # scm_ip_restriction_default_action = lookup(site_config.value, "scm_ip_restriction_default_action", "Deny")
+      # scm_type                          = lookup(site_config.value, "scm_type", null)
+      # scm_minimum_tls_version           = lookup(site_config.value, "scm_minimum_tls_version", "1.2")
+      # scm_use_main_ip_restriction       = length(var.scm_allowed_cidrs) > 0 || var.scm_allowed_subnet_ids != null ? false : true
 
       vnet_route_all_enabled = var.enable_vnet_integration == true ? true : null
 
