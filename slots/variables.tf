@@ -102,7 +102,7 @@ variable "dotnet_stack" {
 variable "dotnet_version" {
   type        = string
   description = "(Optional) The version of .NET to use."
-  default     = "8.0"
+  default     = "v8.0"
 }
 
 variable "app_command_line" {
