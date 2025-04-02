@@ -154,12 +154,6 @@ variable "public_network_access_enabled" {
   default     = true
 }
 
-# variable "staging_slot_enabled" {
-#   description = "Create a staging slot alongside the Function App for blue/green deployment purposes."
-#   type        = bool
-#   default     = false
-# }
-
 variable "connection_strings" {
   description = "List of connection strings for the application"
   type = list(object({
