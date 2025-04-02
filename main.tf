@@ -5,6 +5,7 @@ resource "azurerm_service_plan" "this" {
   location            = var.location
   os_type             = var.os_type
   sku_name            = var.sku_name
+  # zone_redundant      = var.zone_redundant
 }
 
 resource "azurerm_windows_function_app" "this" {
@@ -20,6 +21,17 @@ resource "azurerm_windows_function_app" "this" {
   app_settings = var.app_settings
   https_only   = true
 
+  dynamic "connection_string" {
+    for_each = var.connection_strings
+    content {
+      name  = lookup(connection_string.value, "name", null)
+      type  = lookup(connection_string.value, "type", null)
+      value = lookup(connection_string.value, "value", null)
+    }
+  }
+
+  public_network_access_enabled = var.public_network_access_enabled
+  virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
@@ -36,7 +48,9 @@ resource "azurerm_windows_function_app" "this" {
       }
     }
   }
-
+  # scm_ip_restriction {
+  #   vnet_route_all_enabled    =  var.enable_vnet_integration == true ? true : null
+  # }
   identity {
     type = "SystemAssigned"
   }
@@ -53,9 +67,19 @@ resource "azurerm_linux_function_app" "this" {
 
   service_plan_id = azurerm_service_plan.this[count.index].id
 
-  app_settings = var.app_settings
-  https_only   = true
+  app_settings                  = var.app_settings
+  https_only                    = true
+  public_network_access_enabled = var.public_network_access_enabled
+  virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
 
+  dynamic "connection_string" {
+    for_each = var.connection_strings
+    content {
+      name  = lookup(connection_string.value, "name", null)
+      type  = lookup(connection_string.value, "type", null)
+      value = lookup(connection_string.value, "value", null)
+    }
+  }
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
@@ -86,6 +110,7 @@ module "functions_storage_account" {
   account_replication_type        = var.sa_replication_type
   allow_nested_items_to_be_public = var.allow_nested_items_to_be_public
   default_action                  = var.default_action
+  sa_subnets                      = var.subnet_id != null ? ["${var.subnet_id}"] : null
 }
 
 module "application_insights" {

@@ -153,3 +153,20 @@ variable "subnet_id" {
   description = "The ID of the subnet to connect to"
   default     = null
 }
+
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "Enable public network access"
+  default     = true
+}
+
+variable "connection_strings" {
+  description = "List of connection strings for the application"
+  type = list(object({
+    name  = string
+    type  = string
+    value = string
+  }))
+
+  default = []
+}
