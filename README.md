@@ -82,6 +82,7 @@ No requirements.
 | Name | Description |
 |------|-------------|
 | <a name="output_app_insights_app_id"></a> [app\_insights\_app\_id](#output\_app\_insights\_app\_id) | n/a |
+| <a name="output_asp_id"></a> [asp\_id](#output\_asp\_id) | n/a |
 | <a name="output_function_app_default_hostname"></a> [function\_app\_default\_hostname](#output\_function\_app\_default\_hostname) | n/a |
 | <a name="output_function_app_id"></a> [function\_app\_id](#output\_function\_app\_id) | n/a |
 | <a name="output_function_app_name"></a> [function\_app\_name](#output\_function\_app\_name) | n/a |

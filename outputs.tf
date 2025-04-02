@@ -21,3 +21,7 @@ output "app_insights_app_id" {
 output "sa_primary_access_key" {
   value = module.functions_storage_account.primary_access_key
 }
+
+output "asp_id" {
+  value = length(azurerm_service_plan.this) > 0 ? azurerm_service_plan.this[0].id : null
+}
