@@ -75,6 +75,7 @@ No requirements.
 | <a name="input_sku_name"></a> [sku\_name](#input\_sku\_name) | (Required) The SKU for the plan. | `string` | `"Y1"` | no |
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The ID of the subnet to connect to | `string` | `null` | no |
 | <a name="input_use_dotnet_isolated_runtime"></a> [use\_dotnet\_isolated\_runtime](#input\_use\_dotnet\_isolated\_runtime) | (Optional) Should the DotNet process use an isolated runtime. Defaults to false. | `bool` | `true` | no |
+| <a name="input_zone_redundant"></a> [zone\_redundant](#input\_zone\_redundant) | Should the Service Plan balance across Availability Zones in the region? | `bool` | `false` | no |
 
 ## Outputs
 
