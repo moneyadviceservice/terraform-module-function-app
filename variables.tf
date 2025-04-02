@@ -136,3 +136,37 @@ variable "ftps_state" {
   description = "(Optional) State of FTP / FTPS service for this Windows Function App."
   default     = null
 }
+
+variable "enable_vnet_integration" {
+  type        = bool
+  description = "Enable integration with a virtual network"
+  default     = false
+}
+variable "subnet_id" {
+  type        = string
+  description = "The ID of the subnet to connect to"
+  default     = null
+}
+
+variable "public_network_access_enabled" {
+  type        = bool
+  description = "Enable public network access"
+  default     = true
+}
+
+# variable "staging_slot_enabled" {
+#   description = "Create a staging slot alongside the Function App for blue/green deployment purposes."
+#   type        = bool
+#   default     = false
+# }
+
+variable "connection_strings" {
+  description = "List of connection strings for the application"
+  type = list(object({
+    name  = string
+    type  = string
+    value = string
+  }))
+
+  default = []
+}
