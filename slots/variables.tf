@@ -154,5 +154,6 @@ variable "public_network_access_enabled" {
 }
 
 variable "id" {
-
+  type        = string
+  description = "(Required) The id of the function app to attach to"
 }
