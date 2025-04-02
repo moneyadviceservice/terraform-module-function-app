@@ -164,3 +164,9 @@ variable "connection_strings" {
 
   default = []
 }
+
+variable "zone_redundant" {
+  type        = bool
+  description = " Should the Service Plan balance across Availability Zones in the region?"
+  default     = false
+}

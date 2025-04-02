@@ -1,11 +1,12 @@
 resource "azurerm_service_plan" "this" {
-  count               = var.create_service_plan ? 1 : 0
-  name                = "${var.product}-asp-${var.name}"
-  resource_group_name = var.resource_group_name
-  location            = var.location
-  os_type             = var.os_type
-  sku_name            = var.sku_name
-  # zone_redundant      = var.zone_redundant
+  count                  = var.create_service_plan ? 1 : 0
+  name                   = "${var.product}-asp-${var.name}"
+  resource_group_name    = var.resource_group_name
+  location               = var.location
+  os_type                = var.os_type
+  sku_name               = var.sku_name
+  zone_balancing_enabled = var.zone_redundant
+  worker_count           = var.zone_redundant == true ? 3 : null
 }
 
 resource "azurerm_windows_function_app" "this" {
