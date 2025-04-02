@@ -1,6 +1,6 @@
 resource "azurerm_service_plan" "this" {
   count               = var.create_service_plan ? 1 : 0
-  name                = "${var.product}-asp-${var.name}"
+  name                = var.asp_name == null ? "${var.product}-asp-${var.name}" : var.asp_name
   resource_group_name = var.resource_group_name
   location            = var.location
   os_type             = var.os_type
@@ -16,7 +16,7 @@ resource "azurerm_windows_function_app" "this" {
 
   storage_account_name       = module.functions_storage_account.storageaccount_name
   storage_account_access_key = module.functions_storage_account.primary_access_key
-  service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[0].id
+  service_plan_id            = var.create_service_plan != true ? var.service_plan_id : azurerm_service_plan.this[count.index].id
 
   app_settings = var.app_settings
   https_only   = true
@@ -65,7 +65,7 @@ resource "azurerm_linux_function_app" "this" {
   storage_account_name       = module.functions_storage_account.storageaccount_name
   storage_account_access_key = module.functions_storage_account.primary_access_key
 
-  service_plan_id = azurerm_service_plan.this[0].id
+  service_plan_id = azurerm_service_plan.this[count.index].id
 
   app_settings                  = var.app_settings
   https_only                    = true
@@ -83,7 +83,15 @@ resource "azurerm_linux_function_app" "this" {
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
+
+    dynamic "ip_restriction" {
+      for_each = var.enable_vnet_integration == true ? [1] : []
+      content {
+        virtual_network_subnet_id = var.subnet_id
+      }
+    }
   }
+
 
   identity {
     type = "SystemAssigned"

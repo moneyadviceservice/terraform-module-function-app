@@ -37,7 +37,13 @@ variable "product" {
 variable "create_service_plan" {
   type        = bool
   description = "If true a new service plan is created"
-  default     = true
+  default     = false
+}
+
+variable "asp_name" {
+  type        = string
+  description = "optionally set a service plan name"
+  default     = null
 }
 
 variable "service_plan_id" {
@@ -153,12 +159,6 @@ variable "public_network_access_enabled" {
   description = "Enable public network access"
   default     = true
 }
-
-# variable "staging_slot_enabled" {
-#   description = "Create a staging slot alongside the Function App for blue/green deployment purposes."
-#   type        = bool
-#   default     = false
-# }
 
 variable "connection_strings" {
   description = "List of connection strings for the application"
