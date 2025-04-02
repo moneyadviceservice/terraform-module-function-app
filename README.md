@@ -51,8 +51,9 @@ No requirements.
 | <a name="input_allow_nested_items_to_be_public"></a> [allow\_nested\_items\_to\_be\_public](#input\_allow\_nested\_items\_to\_be\_public) | (Optional) Allow or disallow nested items within this Account to opt into being public | `bool` | `false` | no |
 | <a name="input_app_scale_limit"></a> [app\_scale\_limit](#input\_app\_scale\_limit) | (Optional) The number of workers this function app can scale out to. | `number` | `200` | no |
 | <a name="input_app_settings"></a> [app\_settings](#input\_app\_settings) | (Optional) A map of key-value pairs for App Settings and custom values. | `map(string)` | n/a | yes |
+| <a name="input_asp_name"></a> [asp\_name](#input\_asp\_name) | optionally set a service plan name | `string` | `null` | no |
 | <a name="input_connection_strings"></a> [connection\_strings](#input\_connection\_strings) | List of connection strings for the application | <pre>list(object({<br/>    name  = string<br/>    type  = string<br/>    value = string<br/>  }))</pre> | `[]` | no |
-| <a name="input_create_service_plan"></a> [create\_service\_plan](#input\_create\_service\_plan) | If true a new service plan is created | `bool` | `true` | no |
+| <a name="input_create_service_plan"></a> [create\_service\_plan](#input\_create\_service\_plan) | If true a new service plan is created | `bool` | `false` | no |
 | <a name="input_default_action"></a> [default\_action](#input\_default\_action) | (Optional) Network rules default action | `string` | `"Allow"` | no |
 | <a name="input_dotnet_stack"></a> [dotnet\_stack](#input\_dotnet\_stack) | n/a | `bool` | `false` | no |
 | <a name="input_dotnet_version"></a> [dotnet\_version](#input\_dotnet\_version) | (Optional) The version of .NET to use. | `string` | `"v8.0"` | no |
