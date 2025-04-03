@@ -21,9 +21,10 @@ variable "env" {
 variable "app_settings" {
   type        = map(string)
   description = "(Optional) A map of key-value pairs for App Settings and custom values."
+  default     = {}
 }
 
-variable "os_type" {
+variable "slot_os_type" {
   type        = string
   description = "(Required) The O/S type for the App Services to be hosted in this plan."
   default     = "Linux"
@@ -38,12 +39,6 @@ variable "create_service_plan" {
   type        = bool
   description = "If true a new service plan is created"
   default     = true
-}
-
-variable "asp_name" {
-  type        = string
-  description = "optionally set a service plan name"
-  default     = null
 }
 
 variable "service_plan_id" {
@@ -75,21 +70,33 @@ variable "sku_name" {
   default     = "Y1"
 }
 
-variable "allow_nested_items_to_be_public" {
+variable "tags" {
+  type        = map(string)
+  description = "A mapping of tags assigned to the Resource."
+  default     = {}
+}
+
+variable "enable_client_affinity" {
   type        = bool
-  description = "(Optional) Allow or disallow nested items within this Account to opt into being public"
   default     = false
+  description = "(Optional) Should Client Affinity be enabled?"
 }
 
-variable "default_action" {
+variable "https_only" {
+  type        = bool
+  default     = true
+  description = "(Optional) Should the Web App require HTTPS connections."
+}
+
+variable "ftps_state" {
   type        = string
-  description = "(Optional) Network rules default action"
-  default     = "Allow"
+  description = "(Optional) State of FTP / FTPS service for this Windows Function App."
+  default     = null
 }
 
-variable "sa_replication_type" {
-  type    = string
-  default = "ZRS"
+variable "dotnet_stack" {
+  type    = bool
+  default = false
 }
 
 variable "dotnet_version" {
@@ -98,49 +105,16 @@ variable "dotnet_version" {
   default     = "v8.0"
 }
 
-variable "use_dotnet_isolated_runtime" {
-  type        = bool
-  description = "(Optional) Should the DotNet process use an isolated runtime. Defaults to false."
-  default     = true
-}
-
-variable "app_scale_limit" {
-  type        = number
-  description = "(Optional) The number of workers this function app can scale out to."
-  default     = 200
-}
-
-variable "dotnet_stack" {
-  type    = bool
-  default = false
-}
-
-variable "java_stack" {
-  type    = bool
-  default = false
-}
-
-variable "node_stack" {
-  type    = bool
-  default = false
-}
-
-variable "java_version" {
+variable "app_command_line" {
   type        = string
-  description = "(Optional) The version of Java to use."
-  default     = "17"
-}
-
-variable "node_version" {
-  type        = string
-  description = "(Optional) The version of Node to run."
-  default     = "20"
-}
-
-variable "ftps_state" {
-  type        = string
-  description = "(Optional) State of FTP / FTPS service for this Windows Function App."
   default     = null
+  description = "(Optional) The App command line to launch."
+}
+
+variable "connection_strings" {
+  description = "Connection strings for App Service. See documentation"
+  type        = list(map(string))
+  default     = []
 }
 
 variable "enable_vnet_integration" {
@@ -154,25 +128,32 @@ variable "subnet_id" {
   default     = null
 }
 
+variable "staging_slot_enabled" {
+  type        = bool
+  description = "Create a staging slot alongside the App Service for blue/green deployment purposes. See [documentation](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/app_service_slot)."
+  default     = true
+}
+
+variable "staging_slot_custom_app_settings" {
+  type        = map(string)
+  description = "Override staging slot with custom app settings."
+  default     = null
+}
+
+variable "site_config" {
+  description = "Staging slot site config for App Service."
+  type        = any
+  default     = {}
+  nullable    = false
+}
+
 variable "public_network_access_enabled" {
   type        = bool
   description = "Enable public network access"
   default     = true
 }
 
-variable "connection_strings" {
-  description = "List of connection strings for the application"
-  type = list(object({
-    name  = string
-    type  = string
-    value = string
-  }))
-
-  default = []
-}
-
-variable "zone_redundant" {
-  type        = bool
-  description = " Should the Service Plan balance across Availability Zones in the region?"
-  default     = false
+variable "id" {
+  type        = string
+  description = "(Required) The id of the function app to attach to"
 }
