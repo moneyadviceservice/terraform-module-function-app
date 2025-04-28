@@ -22,6 +22,10 @@ output "sa_primary_access_key" {
   value = module.functions_storage_account.primary_access_key
 }
 
+output "system_assigned_identity_object_id" {
+  value = lower(var.os_type) == "windows" ? azurerm_windows_function_app.this[0].identity[0].principal_id : azurerm_linux_function_app.this[0].identity[0].principal_id
+}
+
 # output "slot_name" {
 #   description = "Name of the Function App slot."
 #   value       = try(azurerm_linux_function_app_slot.staging[0].name, null)
