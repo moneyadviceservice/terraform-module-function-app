@@ -49,16 +49,14 @@ resource "azurerm_windows_function_app" "this" {
       }
     }
   }
-  # scm_ip_restriction {
-  #   vnet_route_all_enabled    =  var.enable_vnet_integration == true ? true : null
-  # }
+
   identity {
     type = "SystemAssigned"
   }
 }
 
 resource "azurerm_linux_function_app" "this" {
-  count               = var.os_type == "Linux" ? 1 : 0
+  count               = lower(var.os_type) == "linux" ? 1 : 0
   name                = "func-${var.name}-${var.env}"
   resource_group_name = var.resource_group_name
   location            = var.location
@@ -92,7 +90,6 @@ resource "azurerm_linux_function_app" "this" {
       }
     }
   }
-
 
   identity {
     type = "SystemAssigned"

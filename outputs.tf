@@ -25,3 +25,7 @@ output "sa_primary_access_key" {
 output "asp_id" {
   value = length(azurerm_service_plan.this) > 0 ? azurerm_service_plan.this[0].id : null
 }
+
+output "system_assigned_identity_object_id" {
+  value = lower(var.os_type) == "windows" ? azurerm_windows_function_app.this[0].identity[0].principal_id : azurerm_linux_function_app.this[0].identity[0].principal_id
+}
