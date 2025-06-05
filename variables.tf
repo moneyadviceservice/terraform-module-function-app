@@ -176,3 +176,26 @@ variable "zone_redundant" {
   description = " Should the Service Plan balance across Availability Zones in the region?"
   default     = false
 }
+
+variable "ip_restriction_default_action" {
+  type        = string
+  description = "The default action"
+  default     = "Allow"
+}
+
+variable "ip_restrictions" {
+  description = "List of IP restrictions for the App Service"
+  type = list(object({
+    name                      = string
+    priority                  = number
+    action                    = string
+    virtual_network_subnet_id = string
+    headers = optional(list(object({
+      x_azure_fdid      = optional(list(string))
+      x_fd_health_probe = optional(list(string))
+      x_forwarded_for   = optional(list(string))
+      x_forwarded_host  = optional(list(string))
+    })), [])
+  }))
+  default = []
+}
