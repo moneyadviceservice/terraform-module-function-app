@@ -93,7 +93,7 @@ resource "azurerm_linux_function_app" "this" {
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
-    ip_restriction_default_action          = var.ip_restriction_default_action == null ? "Deny" : var.ip_restriction_default_action
+    ip_restriction_default_action          = var.ip_restriction_default_action
     dynamic "application_stack" {
       for_each = var.dotnet_stack ? [1] : []
       content {
