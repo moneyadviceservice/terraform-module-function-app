@@ -8,6 +8,7 @@ resource "azurerm_windows_function_app_slot" "this" {
   virtual_network_subnet_id     = var.enable_vnet_integration == true ? var.subnet_id : null
   app_settings                  = var.app_settings
   https_only                    = var.https_only
+  storage_account_name          = module.functions_storage_account.storageaccount_name
 
   site_config {
     ftps_state             = var.ftps_state
