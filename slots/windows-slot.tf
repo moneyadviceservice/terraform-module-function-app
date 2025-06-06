@@ -1,7 +1,7 @@
 resource "azurerm_windows_function_app_slot" "this" {
   count = lower(var.slot_os_type) == "windows" ? 1 : 0
 
-  name            = "func-${var.name}-staging-slot"
+  name            = "func-${var.name}-stg-slot"
   function_app_id = var.id
 
   public_network_access_enabled = var.public_network_access_enabled
