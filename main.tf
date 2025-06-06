@@ -82,15 +82,25 @@ resource "azurerm_linux_function_app" "this" {
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
+    ip_restriction_default_action          = var.ip_restriction_default_action == null ? "Deny" : var.ip_restriction_default_action
+    dynamic "application_stack" {
+      for_each = var.dotnet_stack ? [1] : []
+      content {
+        dotnet_version = var.dotnet_stack == true ? var.dotnet_version : null
 
+      }
+    }
     dynamic "ip_restriction" {
       for_each = var.enable_vnet_integration == true ? [1] : []
       content {
-        virtual_network_subnet_id = var.subnet_id
+        name                      = ip_restriction.value.name
+        priority                  = ip_restriction.value.priority
+        action                    = ip_restriction.value.action
+        virtual_network_subnet_id = ip_restriction.value.virtual_network_subnet_id
+        headers                   = ip_restriction.value.headers
       }
     }
   }
-
   identity {
     type = "SystemAssigned"
   }

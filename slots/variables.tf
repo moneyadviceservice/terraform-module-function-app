@@ -157,3 +157,20 @@ variable "id" {
   type        = string
   description = "(Required) The id of the function app to attach to"
 }
+
+variable "ip_restrictions" {
+  description = "List of IP restrictions for the App Service"
+  type = list(object({
+    name                      = string
+    priority                  = number
+    action                    = string
+    virtual_network_subnet_id = string
+    headers = optional(list(object({
+      x_azure_fdid      = optional(list(string))
+      x_fd_health_probe = optional(list(string))
+      x_forwarded_for   = optional(list(string))
+      x_forwarded_host  = optional(list(string))
+    })), [])
+  }))
+  default = []
+}

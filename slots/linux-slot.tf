@@ -1,14 +1,14 @@
-resource "azurerm_linux_web_app_slot" "this" {
+resource "azurerm_linux_function_app_slot" "this" {
   count = lower(var.slot_os_type) == "linux" ? 1 : 0
 
-  name           = "func-${var.name}-staging-slot"
-  app_service_id = var.id
+  name            = "func-${var.name}-staging-slot"
+  function_app_id = var.id
 
   public_network_access_enabled = var.public_network_access_enabled
   virtual_network_subnet_id     = var.enable_vnet_integration == true ? var.subnet_id : null
   app_settings                  = var.app_settings
-  client_affinity_enabled       = var.enable_client_affinity
   https_only                    = var.https_only
+  storage_account_name          = local.storage_account_name
 
   site_config {
     ftps_state             = var.ftps_state
@@ -19,6 +19,16 @@ resource "azurerm_linux_web_app_slot" "this" {
       content {
         dotnet_version = var.dotnet_stack == true ? var.dotnet_version : null
 
+      }
+    }
+    dynamic "ip_restriction" {
+      for_each = var.enable_vnet_integration == true ? [1] : []
+      content {
+        name                      = ip_restriction.value.name
+        priority                  = ip_restriction.value.priority
+        action                    = ip_restriction.value.action
+        virtual_network_subnet_id = ip_restriction.value.virtual_network_subnet_id
+        headers                   = ip_restriction.value.headers
       }
     }
   }
