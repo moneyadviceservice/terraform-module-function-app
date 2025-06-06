@@ -174,3 +174,9 @@ variable "ip_restrictions" {
   }))
   default = []
 }
+
+variable "ip_restriction_default_action" {
+  type        = string
+  description = "The default action"
+  default     = "Allow"
+}
