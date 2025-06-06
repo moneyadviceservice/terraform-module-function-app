@@ -49,7 +49,7 @@ resource "azurerm_windows_function_app" "this" {
       }
     }
     dynamic "ip_restriction" {
-      for_each = var.enable_vnet_integration == true ? [1] : []
+      for_each = var.ip_restrictions
       content {
         name                      = ip_restriction.value.name
         priority                  = ip_restriction.value.priority
@@ -58,6 +58,7 @@ resource "azurerm_windows_function_app" "this" {
         headers                   = ip_restriction.value.headers
       }
     }
+
   }
 
   identity {
@@ -101,7 +102,7 @@ resource "azurerm_linux_function_app" "this" {
       }
     }
     dynamic "ip_restriction" {
-      for_each = var.enable_vnet_integration == true ? [1] : []
+      for_each = var.ip_restrictions
       content {
         name                      = ip_restriction.value.name
         priority                  = ip_restriction.value.priority
