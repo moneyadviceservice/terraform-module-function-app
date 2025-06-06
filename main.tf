@@ -48,6 +48,16 @@ resource "azurerm_windows_function_app" "this" {
 
       }
     }
+    dynamic "ip_restriction" {
+      for_each = var.enable_vnet_integration == true ? [1] : []
+      content {
+        name                      = ip_restriction.value.name
+        priority                  = ip_restriction.value.priority
+        action                    = ip_restriction.value.action
+        virtual_network_subnet_id = ip_restriction.value.virtual_network_subnet_id
+        headers                   = ip_restriction.value.headers
+      }
+    }
   }
 
   identity {
