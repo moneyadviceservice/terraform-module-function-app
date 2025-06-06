@@ -1,13 +1,12 @@
-resource "azurerm_windows_web_app_slot" "this" {
+resource "azurerm_windows_function_app_slot" "this" {
   count = lower(var.slot_os_type) == "windows" ? 1 : 0
 
   name           = "func-${var.name}-staging-slot"
-  app_service_id = var.id
+  function_app_id = var.id
 
   public_network_access_enabled = var.public_network_access_enabled
   virtual_network_subnet_id     = var.enable_vnet_integration == true ? var.subnet_id : null
   app_settings                  = var.app_settings
-  client_affinity_enabled       = var.enable_client_affinity
   https_only                    = var.https_only
 
   site_config {
