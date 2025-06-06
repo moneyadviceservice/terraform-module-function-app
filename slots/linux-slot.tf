@@ -1,7 +1,7 @@
 resource "azurerm_linux_function_app_slot" "this" {
   count = lower(var.slot_os_type) == "linux" ? 1 : 0
 
-  name           = "func-${var.name}-staging-slot"
+  name            = "func-${var.name}-staging-slot"
   function_app_id = var.id
 
   public_network_access_enabled = var.public_network_access_enabled
@@ -19,6 +19,16 @@ resource "azurerm_linux_function_app_slot" "this" {
       content {
         dotnet_version = var.dotnet_stack == true ? var.dotnet_version : null
 
+      }
+    }
+    dynamic "ip_restriction" {
+      for_each = var.enable_vnet_integration == true ? [1] : []
+      content {
+        name                      = ip_restriction.value.name
+        priority                  = ip_restriction.value.priority
+        action                    = ip_restriction.value.action
+        virtual_network_subnet_id = ip_restriction.value.virtual_network_subnet_id
+        headers                   = ip_restriction.value.headers
       }
     }
   }
