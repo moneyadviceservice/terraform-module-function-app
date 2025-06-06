@@ -8,7 +8,6 @@ resource "azurerm_linux_function_app_slot" "this" {
   virtual_network_subnet_id     = var.enable_vnet_integration == true ? var.subnet_id : null
   app_settings                  = var.app_settings
   https_only                    = var.https_only
-  storage_account_name          = var.storage_account_name
 
   site_config {
     ip_restriction_default_action = var.ip_restriction_default_action
