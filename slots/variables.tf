@@ -180,3 +180,9 @@ variable "ip_restriction_default_action" {
   description = "The default action"
   default     = "Allow"
 }
+
+variable "storage_account_name" {
+  type        = string
+  description = "The name of the storage account"
+  default     = null
+}
