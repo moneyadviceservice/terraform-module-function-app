@@ -55,6 +55,7 @@ resource "azurerm_windows_function_app" "this" {
         priority                  = ip_restriction.value.priority
         action                    = ip_restriction.value.action
         virtual_network_subnet_id = ip_restriction.value.virtual_network_subnet_id
+        ip_address                = ip_restriction.value.ip_address
         headers                   = ip_restriction.value.headers
       }
     }
@@ -108,6 +109,7 @@ resource "azurerm_linux_function_app" "this" {
         priority                  = ip_restriction.value.priority
         action                    = ip_restriction.value.action
         virtual_network_subnet_id = ip_restriction.value.virtual_network_subnet_id
+        ip_address                = ip_restriction.value.ip_address
         headers                   = ip_restriction.value.headers
       }
     }
