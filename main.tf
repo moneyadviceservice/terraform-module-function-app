@@ -95,6 +95,7 @@ resource "azurerm_linux_function_app" "this" {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
     ip_restriction_default_action          = var.ip_restriction_default_action
+    vnet_route_all_enabled                 = var.enable_vnet_integration == true ? true : false
     dynamic "application_stack" {
       for_each = var.dotnet_stack ? [1] : []
       content {
