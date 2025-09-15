@@ -38,8 +38,8 @@ resource "azurerm_windows_function_app" "this" {
     app_scale_limit                        = var.app_scale_limit
     ftps_state                             = var.ftps_state
     vnet_route_all_enabled                 = var.enable_vnet_integration == true ? true : false
-    always_on                 = var.always_on
-    pre_warmed_instance_count = var.pre_warmed_instance_count
+    always_on                              = var.always_on
+    pre_warmed_instance_count              = var.pre_warmed_instance_count
     dynamic "application_stack" {
       for_each = var.dotnet_stack || var.java_stack || var.node_stack ? [1] : []
       content {
@@ -98,8 +98,8 @@ resource "azurerm_linux_function_app" "this" {
     app_scale_limit                        = var.app_scale_limit
     ip_restriction_default_action          = var.ip_restriction_default_action
     vnet_route_all_enabled                 = var.enable_vnet_integration == true ? true : false
-    always_on                 = var.always_on
-    pre_warmed_instance_count = var.pre_warmed_instance_count
+    always_on                              = var.always_on
+    pre_warmed_instance_count              = var.pre_warmed_instance_count
     dynamic "application_stack" {
       for_each = var.dotnet_stack ? [1] : []
       content {
