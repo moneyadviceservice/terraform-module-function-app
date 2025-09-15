@@ -77,6 +77,8 @@ No requirements.
 | <a name="input_subnet_id"></a> [subnet\_id](#input\_subnet\_id) | The ID of the subnet to connect to | `string` | `null` | no |
 | <a name="input_use_dotnet_isolated_runtime"></a> [use\_dotnet\_isolated\_runtime](#input\_use\_dotnet\_isolated\_runtime) | (Optional) Should the DotNet process use an isolated runtime. Defaults to false. | `bool` | `true` | no |
 | <a name="input_zone_redundant"></a> [zone\_redundant](#input\_zone\_redundant) | Should the Service Plan balance across Availability Zones in the region? | `bool` | `false` | no |
+| <a name="input_always_on"></a> [always\_on](#input\_always\_on) | (Optional) Prevents the Function App from unloading when idle. Ignored in consumption plans  | `bool` | `null` | no |
+| <a name="input_pre_warmed_instance_count"></a> [pre_warmed_instance_count](#input\_pre\_warmed_instance_count) | (Optional) Ensures Azure keeps at least one Premium worker instance initialized and ready to serve requests. Not compatible with consumption plan | `number` | `null` | no |
 
 ## Outputs
 
