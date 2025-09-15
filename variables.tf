@@ -200,3 +200,13 @@ variable "ip_restrictions" {
   }))
   default = []
 }
+
+variable "always_on" {
+  type    = bool
+  default = null
+}
+
+variable "pre_warmed_instance_count" {
+  type    = number
+  default = null
+}
