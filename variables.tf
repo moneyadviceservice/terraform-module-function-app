@@ -210,3 +210,9 @@ variable "pre_warmed_instance_count" {
   type    = number
   default = null
 }
+
+variable "log_retention_days" {
+  type        = number
+  description = "(Optional) Specifies the retention period in days. Possible values are 30, 60, 90, 120, 180, 270, 365, 550 or 730. Defaults to 90"
+  default     = 90
+}

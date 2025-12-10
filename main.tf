@@ -146,4 +146,5 @@ module "application_insights" {
   product             = var.product
   name                = "${var.name}-${var.env}"
   resource_group_name = var.resource_group_name
+  retention_in_days   = var.log_retention_days
 }
