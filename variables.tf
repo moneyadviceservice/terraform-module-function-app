@@ -46,6 +46,12 @@ variable "asp_name" {
   default     = null
 }
 
+variable "maximum_elastic_worker_count" {
+  type        = number
+  description = "(Optional) Maximum number of elastic workers for scale out. Only applicable for Elastic Premium SKUs."
+  default     = null
+}
+
 variable "service_plan_id" {
   type        = string
   description = "If you want to use an existing service plan"
