@@ -52,6 +52,12 @@ variable "maximum_elastic_worker_count" {
   default     = null
 }
 
+variable "elastic_instance_minimum" {
+  type        = number
+  description = "(Optional) The minimum number of instances for this Function App. Only affects apps hosted on an Elastic Premium plan."
+  default     = null
+}
+
 variable "service_plan_id" {
   type        = string
   description = "If you want to use an existing service plan"

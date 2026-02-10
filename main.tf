@@ -1,15 +1,15 @@
 resource "azurerm_service_plan" "this" {
-  count                         = var.create_service_plan ? 1 : 0
-  name                          = "${var.product}-asp-${var.name}"
-  resource_group_name           = var.resource_group_name
-  location                      = var.location
-  os_type                       = var.os_type
-  sku_name                      = var.sku_name
-  zone_balancing_enabled        = var.zone_redundant
-  worker_count                  = var.zone_redundant == true ? 3 : null
+  count                  = var.create_service_plan ? 1 : 0
+  name                   = "${var.product}-asp-${var.name}"
+  resource_group_name    = var.resource_group_name
+  location               = var.location
+  os_type                = var.os_type
+  sku_name               = var.sku_name
+  zone_balancing_enabled = var.zone_redundant
+  worker_count           = var.zone_redundant == true ? 3 : null
 
   # maximum_elastic_worker_count is only supported for Elastic Premium (EP) SKUs
-  maximum_elastic_worker_count  = can(regex("^EP", var.sku_name)) ? var.maximum_elastic_worker_count : null
+  maximum_elastic_worker_count = can(regex("^EP", var.sku_name)) ? var.maximum_elastic_worker_count : null
 }
 
 resource "azurerm_windows_function_app" "this" {
@@ -43,6 +43,7 @@ resource "azurerm_windows_function_app" "this" {
     vnet_route_all_enabled                 = var.enable_vnet_integration == true ? true : false
     always_on                              = var.always_on
     pre_warmed_instance_count              = var.pre_warmed_instance_count
+    elastic_instance_minimum               = can(regex("^EP", var.sku_name)) ? var.elastic_instance_minimum : null
     dynamic "application_stack" {
       for_each = var.dotnet_stack || var.java_stack || var.node_stack ? [1] : []
       content {
@@ -103,6 +104,7 @@ resource "azurerm_linux_function_app" "this" {
     vnet_route_all_enabled                 = var.enable_vnet_integration == true ? true : false
     always_on                              = var.always_on
     pre_warmed_instance_count              = var.pre_warmed_instance_count
+    elastic_instance_minimum               = can(regex("^EP", var.sku_name)) ? var.elastic_instance_minimum : null
     dynamic "application_stack" {
       for_each = var.dotnet_stack ? [1] : []
       content {
