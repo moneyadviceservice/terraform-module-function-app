@@ -44,6 +44,7 @@ resource "azurerm_windows_function_app" "this" {
     always_on                              = var.always_on
     pre_warmed_instance_count              = var.pre_warmed_instance_count
     elastic_instance_minimum               = can(regex("^EP", var.sku_name)) ? var.elastic_instance_minimum : null
+    use_32_bit_worker                      = var.use_32_bit_worker
     dynamic "application_stack" {
       for_each = var.dotnet_stack || var.java_stack || var.node_stack ? [1] : []
       content {
