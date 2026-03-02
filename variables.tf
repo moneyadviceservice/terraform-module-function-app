@@ -228,3 +228,9 @@ variable "log_retention_days" {
   description = "(Optional) Specifies the retention period in days. Possible values are 30, 60, 90, 120, 180, 270, 365, 550 or 730. Defaults to 90"
   default     = 90
 }
+
+variable "use_32_bit_worker" {
+  type        = bool
+  description = "(Optional) Should the Windows Function App use a 32-bit worker process. Defaults to true. Set to false to use 64-bit."
+  default     = true
+}

@@ -187,3 +187,9 @@ variable "storage_account_name" {
   description = "The name of the storage account"
   default     = null
 }
+
+variable "use_32_bit_worker" {
+  type        = bool
+  description = "(Optional) Should the Windows Function App Slot use a 32-bit worker process. Defaults to true. Set to false to use 64-bit."
+  default     = true
+}
