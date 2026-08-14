@@ -234,3 +234,9 @@ variable "use_32_bit_worker" {
   description = "(Optional) Should the Windows Function App use a 32-bit worker process. Defaults to true. Set to false to use 64-bit."
   default     = true
 }
+
+variable "tags" {
+  type        = map(string)
+  default     = {}
+  description = "A set of tags to add to the function app"
+}

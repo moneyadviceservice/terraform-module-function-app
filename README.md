@@ -79,6 +79,7 @@ No requirements.
 | <a name="input_zone_redundant"></a> [zone\_redundant](#input\_zone\_redundant) | Should the Service Plan balance across Availability Zones in the region? | `bool` | `false` | no |
 | <a name="input_always_on"></a> [always\_on](#input\_always\_on) | (Optional) Prevents the Function App from unloading when idle. Ignored in consumption plans  | `bool` | `null` | no |
 | <a name="input_pre_warmed_instance_count"></a> [pre_warmed_instance_count](#input\_pre\_warmed_instance_count) | (Optional) Ensures Azure keeps at least one Premium worker instance initialized and ready to serve requests. Not compatible with consumption plan | `number` | `null` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | (Optional) A set of tags to add to the function app | `map(string)` | `{}` | no |
 
 ## Outputs
 
