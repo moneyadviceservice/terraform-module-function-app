@@ -29,7 +29,8 @@ resource "azurerm_windows_function_app" "this" {
   sticky_settings {
     app_setting_names = [
       for k in keys(var.app_settings) : k
-      if !startswith(k, "WEBSITE_")
+      if !startswith(k, "WEBSITE_") &&
+         !startswith(k, "FUNCTIONS_")
     ]
     connection_string_names = [
       for cs in var.connection_strings : cs.name
@@ -105,7 +106,8 @@ resource "azurerm_linux_function_app" "this" {
   sticky_settings {
     app_setting_names = [
       for k in keys(var.app_settings) : k
-      if !startswith(k, "WEBSITE_")
+      if !startswith(k, "WEBSITE_") &&
+         !startswith(k, "FUNCTIONS_")
     ]
     connection_string_names = [
       for cs in var.connection_strings : cs.name
