@@ -25,6 +25,13 @@ resource "azurerm_windows_function_app" "this" {
   app_settings = var.app_settings
   tags         = var.tags
   https_only   = true
+  
+  sticky_settings {
+    app_setting_names = keys(var.app_settings)
+    connection_string_names = [
+      for cs in var.connection_strings : cs.name
+    ]
+  }
 
   dynamic "connection_string" {
     for_each = var.connection_strings
@@ -92,6 +99,13 @@ resource "azurerm_linux_function_app" "this" {
   public_network_access_enabled = var.public_network_access_enabled
   virtual_network_subnet_id     = var.subnet_id != null ? var.subnet_id : null
 
+  sticky_settings {
+    app_setting_names = keys(var.app_settings)
+    connection_string_names = [
+      for cs in var.connection_strings : cs.name
+    ]
+  }
+
   dynamic "connection_string" {
     for_each = var.connection_strings
     content {
@@ -100,6 +114,7 @@ resource "azurerm_linux_function_app" "this" {
       value = lookup(connection_string.value, "value", null)
     }
   }
+
   site_config {
     application_insights_connection_string = "InstrumentationKey=${module.application_insights.instrumentation_key};IngestionEndpoint=https://uksouth-0.in.applicationinsights.azure.com/"
     app_scale_limit                        = var.app_scale_limit
