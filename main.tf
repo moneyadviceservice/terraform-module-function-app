@@ -25,16 +25,16 @@ resource "azurerm_windows_function_app" "this" {
   app_settings = var.app_settings
   tags         = var.tags
   https_only   = true
-  
+
   sticky_settings {
     app_setting_names = [
       for k in keys(var.app_settings) : k
       if !startswith(k, "WEBSITE_") &&
-         !startswith(k, "FUNCTIONS_")
+      !startswith(k, "FUNCTIONS_")
     ]
-    connection_string_names = [
+    connection_string_names = length(var.connection_strings) > 0 ? [
       for cs in var.connection_strings : cs.name
-    ]
+    ] : null
   }
 
   dynamic "connection_string" {
@@ -107,11 +107,11 @@ resource "azurerm_linux_function_app" "this" {
     app_setting_names = [
       for k in keys(var.app_settings) : k
       if !startswith(k, "WEBSITE_") &&
-         !startswith(k, "FUNCTIONS_")
+      !startswith(k, "FUNCTIONS_")
     ]
-    connection_string_names = [
+    connection_string_names = length(var.connection_strings) > 0 ? [
       for cs in var.connection_strings : cs.name
-    ]
+    ] : null
   }
 
   dynamic "connection_string" {
