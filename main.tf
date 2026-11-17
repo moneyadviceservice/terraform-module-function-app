@@ -32,9 +32,9 @@ resource "azurerm_windows_function_app" "this" {
       if !startswith(k, "WEBSITE_") &&
       !startswith(k, "FUNCTIONS_")
     ]
-    connection_string_names = [
+    connection_string_names = length(var.connection_strings) > 0 ? [
       for cs in var.connection_strings : cs.name
-    ]
+    ] : null
   }
 
   dynamic "connection_string" {
